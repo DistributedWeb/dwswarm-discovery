@@ -1,10 +1,10 @@
 {
-  "name": "@hyperswarm/discovery",
-  "version": "1.6.0",
-  "description": "The Hyperswarm discovery stack",
+  "name": "dwswarm-discovery",
+  "version": "1.1.0",
+  "description": "The dwswarm discovery stack",
   "main": "index.js",
   "dependencies": {
-    "@hyperswarm/dht": "^3.0.0",
+    "dwswarm-dht": "^1.0.0",
     "multicast-dns": "^7.2.0"
   },
   "devDependencies": {
