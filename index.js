@@ -32,6 +32,14 @@ class Topic extends EventEmitter {
     this._idAnswer = { type: 'TXT', name, data: [ this.id ] }
     this._startDht()
     if (!this.announce || opts.lookup) this._startMdns()
+    if (this.announce) process.nextTick(this._fireAnnounce.bind(this))
+  }
+
+  _fireAnnounce () { // firing once right away make lookup, then announce much faster
+    this._discovery._onmdnsquery({
+      questions: [{ type: 'SRV', name: this._domain }],
+      answers: []
+    })
   }
 
   update () {
@@ -140,7 +148,7 @@ class Discovery extends EventEmitter {
 
     this.destroyed = false
     this.dht = dht(opts)
-    this.mdns = multicast()
+    this.mdns = opts.multicast || multicast()
 
     this.mdns.on('query', this._onmdnsquery.bind(this))
     this.mdns.on('response', this._onmdnsresponse.bind(this))
@@ -189,10 +197,11 @@ class Discovery extends EventEmitter {
     })
   }
 
-  lookupOne (key, cb) {
+  lookupOne (key, opts, cb) {
+    if (typeof opts === 'function') return this.lookupOne(key, null, opts)
     const onclose = () => cb(new Error('Lookup failed'))
 
-    this.lookup(key)
+    this.lookup(key, opts)
       .on('close', onclose)
       .once('peer', onpeer)
 
@@ -230,14 +239,17 @@ class Discovery extends EventEmitter {
     this.dht.holepunch(peer, cb)
   }
 
-  destroy () {
+  destroy (opts) {
     if (this.destroyed) return
     this.destroyed = true
+
+    if (!opts) opts = {}
 
     const self = this
     var missing = 1
 
     this.mdns.destroy()
+    if (opts.force) return process.nextTick(done)
 
     for (const set of this._domains.values()) {
       for (const topic of set) {
