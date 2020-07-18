@@ -1,4 +1,4 @@
-const dht = require('@hyperswarm/dht')
+const dht = require('dwswarm-dht')
 const multicast = require('multicast-dns')
 const { EventEmitter } = require('events')
 const crypto = require('crypto')
@@ -145,7 +145,7 @@ class Discovery extends EventEmitter {
     this.mdns.on('query', this._onmdnsquery.bind(this))
     this.mdns.on('response', this._onmdnsresponse.bind(this))
 
-    const domain = opts.domain || 'hyperswarm.local'
+    const domain = opts.domain || 'dwswarm.local'
 
     this._tld = '.' + domain
     this._domains = new Map()
