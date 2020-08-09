@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 const test = require('tape')
-const dht = require('dht-rpc')
+const dht = require('dweb-dht-rpc')
 const discovery = require('./')
 
 const bootstrap = dht({ ephemeral: true })

@@ -1,15 +1,15 @@
 {
-  "name": "@hyperswarm/discovery",
-  "version": "2.0.0",
-  "description": "The Hyperswarm discovery stack",
+  "name": "dwswarm-discovery",
+  "version": "1.0.0",
+  "description": "The dwswarm discovery stack",
   "main": "index.js",
   "dependencies": {
-    "@hyperswarm/dht": "^4.0.0",
+    "dwswarm-dht": "git://github.com/DistributedWeb/dwswarm-dht.git#d641000a1e017d111b923cb396f6ceacf21790d5",
     "multicast-dns": "^7.2.2",
     "timeout-refresh": "^1.0.2"
   },
   "devDependencies": {
-    "dht-rpc": "^4.1.2",
+    "dweb-dht-rpc": "git://github.com/DistributedWeb/dweb-dht-rpc.git#d7fe57cb7c6ca8ba88eb736aa9a919174355b877",
     "standard": "^12.0.1",
     "tape": "^4.9.1"
   },
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hyperswarm/discovery.git"
+    "url": "https://github.com/dwswarm-discovery.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hyperswarm/discovery/issues"
+    "url": "https://github.com/dwswarm-discovery/issues"
   },
-  "homepage": "https://github.com/hyperswarm/discovery"
+  "homepage": "https://github.com/dwswarm-discovery"
 }
